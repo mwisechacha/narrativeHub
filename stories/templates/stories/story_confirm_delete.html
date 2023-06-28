@@ -1,0 +1,17 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+<h2>Delete story</h2>
+
+<form method='POST'>
+    {% csrf_token%}
+    <p>Are you sre you want to delete the post '{{story.title}}'</p>
+    <div>
+        <button type="submit">Yes, Delete</button>
+        <a href="{%url 'storyposts'%}">Cancel</a>
+    </div>
+</form>
+
+
+
+{% endblock content%}

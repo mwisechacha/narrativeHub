@@ -1,0 +1,16 @@
+{%extends 'base.html'%} 
+
+{%block content%}
+
+  <h1>My Stories</h1>
+  {% for story in stories%}
+        <h2>{{story.title}}</h2>
+        <img src="{{story.cover_picture.url}}" />
+        <p>Posted on {{story.created_at | date:"M d, Y"}} by {{story.author | title}}</p>
+        <p>{{story.content}}</p>
+        <p><a href="{% url 'edit-story' story.id %}">Edit</a>
+          <a href="{% url 'delete-story' story.id %}">Delete</a>
+        </p>
+  {% endfor %} 
+  
+{%endblock content%}

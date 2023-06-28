@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel='stylesheet' href={%static 'css/styles.css'%}/>
+    <script src="{% static 'js/app.js'%}" defer></script>
+    <title>{%if title%} {{title}}{%else%} NarrativeHub {%endif%}</title>
+  </head>
+  <body>
+    {%block content%} 
+
+      {% if messages %}
+          <div class="flash-messages">
+              {% for message in messages %}
+                  <div {% if message.tags %} class="alert alert-{{ message.tags}}" {% endif %}>
+                      {{message}}
+                  </div>
+              {% endfor %}
+          </div>
+      {% endif %} 
+    
+    {% endblock %}
+  </body>
+</html>
