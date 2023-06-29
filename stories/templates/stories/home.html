@@ -8,9 +8,14 @@
         <img src="{{story.cover_picture.url}}" />
         <p>Posted on {{story.created_at | date:"M d, Y"}} by {{story.author | title}}</p>
         <p>{{story.content}}</p>
-        <p><a href="{% url 'edit-story' story.id %}">Edit</a>
-          <a href="{% url 'delete-story' story.id %}">Delete</a>
+
+        {% if request.user.is_authenticated and request.user == post.author %}
+        <p>
+              <a href="{% url 'edit-story' story.id %}">Edit</a>
+              <a href="{% url 'delete-story' story.id %}">Delete</a>
         </p>
+        {% endif %}
+
   {% endfor %} 
   
 {%endblock content%}

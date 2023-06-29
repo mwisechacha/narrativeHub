@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import Story
 from .forms import StoryForm
 
 # Create your views here.
 
-
+@login_required
 def create_story(request):
     if request.method == 'GET':
         context = {'form': StoryForm()}
@@ -14,7 +15,9 @@ def create_story(request):
     elif request.method == 'POST':
         form = StoryForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)
+            user.author = request.user
+            user.save()
             messages.success(
                 request, 'The story has been created successfully')
             return redirect('/')
@@ -23,7 +26,9 @@ def create_story(request):
             return render(request, 'stories/story_form.html', {'form': form})
 
 
+@login_required
 def edit_story(request, id):
+    queryset = Story.objects.filter(author=request.user)
     story = get_object_or_404(Story, id=id)
 
     if request.method == 'GET':
@@ -41,8 +46,10 @@ def edit_story(request, id):
             return render(request, 'stories/story_form.html', {'form': form})
 
 
+@login_required
 def delete_story(request, id):
-    story = get_object_or_404(Story, id=id)
+    queryset = Story.objects.filter(author=request.user)
+    story = get_object_or_404(Story, pk=id)
     context = {'story': story}
 
     if request.method == 'GET':
