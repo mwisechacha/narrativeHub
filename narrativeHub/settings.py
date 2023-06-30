@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
+import configparser
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -133,8 +135,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PORT = 587
-EMAIL_HOST_USER = 'narrativehub2.0@gmail.com'
-EMAIL_HOST_PASSWORD = 'arigotfimvxyfmgw'
 EMAIL_USE_TLS = True
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+EMAIL_HOST_PASSWORD = config.get('SMTP', 'PASSWORD')
+EMAIL_HOST_PORT = config.get('SMTP', 'PORT')
+EMAIL_HOST_USER = config.get('SMTP', 'USERNAME')
+EMAIL_HOST = config.get('SMTP', 'HOST')
