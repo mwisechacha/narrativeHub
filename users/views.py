@@ -6,8 +6,9 @@ from .forms import LoginForm, RegisterForm
 from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string, get_template
-from django.template import Context
-from django.utils.html import strip_tags
+from django.contrib.auth.models import auth, User
+from django.core.mail import EmailMessage
+from django.conf import settings
 
 # Create your views here.
 
@@ -26,16 +27,19 @@ def sign_up(request):
             user.save()
 
             # mail system
-            html = get_template('users/email_template.html')
             context = {'username': user.username}
-            subject, from_email, to = 'Welcome', 'narrativehub2.0@gmail.com', user.email
-            html_content = html.render(context)
-            message = EmailMultiAlternatives(
-                subject, html_content, from_email, [to])
-            message.attach_alternative(html_content, 'text.html')
+            html_template = 'users/email_template.html'
+            html_message = render_to_string(html_template, context=context)
+            subject = 'Welcome to NarrativeHub!'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [user.email]
+            message = EmailMessage(subject, html_message,
+                                   email_from, recipient_list)
+            message.content_subtype = 'html'
             message.send()
             # messages.success(
             #     request, 'Thank you for signing up in Narrative Hub')
+            
             login(request, user)
             return redirect("storyposts")
         else:
