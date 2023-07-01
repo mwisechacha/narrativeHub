@@ -7,6 +7,8 @@ from .forms import StoryForm
 
 # Create your views here.
 
+
+# story details
 @login_required
 def create_story(request):
     if request.method == 'GET':
@@ -58,6 +60,9 @@ def delete_story(request, id):
         story.delete()
         messages.success(request, 'The story has been deleted successfully')
         return redirect('storyposts')
+
+# comment section
+# def create_comment(request):
 
 
 def home(request):

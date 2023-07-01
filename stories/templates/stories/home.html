@@ -9,6 +9,10 @@
         <p>Posted on {{story.created_at | date:"M d, Y"}} by {{story.author | title}}</p>
         <p>{{story.content}}</p>
 
+        {% for comment in comments%}
+           <a href="{% url 'comment' comment.id%}">Comments</a>
+        {% endfor %}   
+
         {% if request.user.is_authenticated and request.user == post.author %}
         <p>
               <a href="{% url 'edit-story' story.id %}">Edit</a>
