@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import Story
-from .forms import StoryForm
+from .forms import StoryForm, CommentForm
 
 # Create your views here.
 
@@ -62,8 +62,24 @@ def delete_story(request, id):
         return redirect('storyposts')
 
 # comment section
-# def create_comment(request):
+def create_comment(request, id):
+    story = get_object_or_404(Story, pk=id)
 
+    if request.method == 'GET':
+        context = {'form': CommentForm(instance=story), 'id':id}
+        return render(request, 'stories/comment_form.html', context)
+    
+    elif request.method == 'POST':
+        form = CommentForm(request.POST, instance=story)
+        if form.is_valid():
+            comment = form.save()
+            comment.story = story
+            comment.save()
+            # messages.success(request, 'comment has been posted successfully')
+            return redirect('storyposts')
+        else:
+            messages.error(request, 'Please correct the following errors')
+            return render(request, 'stories/comment_form.html', {'form': form})
 
 def home(request):
     stories = Story.objects.all()

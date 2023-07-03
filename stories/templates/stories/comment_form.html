@@ -2,7 +2,12 @@
 {% block content %}
 
 <h2>leave a comment</h2>
-<form method="POST">
+<form method="post">
     {% csrf_token %}
-    <p>Posted on {{story.created_at | date:"M d, Y"}} by {{story.author | title}}</p>
+    <form method="POST" novalidate enctype="multipart/form-data">
+    {% csrf_token %} {{ form.as_p}}
+    <input type="submit" value="Save" />
+  </form>
 </form>
+
+{% endblock %}

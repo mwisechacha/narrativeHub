@@ -9,9 +9,23 @@
         <p>Posted on {{story.created_at | date:"M d, Y"}} by {{story.author | title}}</p>
         <p>{{story.content}}</p>
 
-        {% for comment in comments%}
-           <a href="{% url 'comment' comment.id%}">Comments</a>
-        {% endfor %}   
+        <h2>comments</h2>
+        {% if not story.comments.all %}
+             No Comments Yet <a href="{% url 'add-comment' story.id %}">
+                 Add a comment
+             </a>
+        {% else %}
+             {% for comment in story.comments.all %}
+             <strong>
+                 {{ comment.author }} - {{ comment.created_at}}
+             </strong><br>
+             {{ comment.comment_section }}
+             
+             {% endfor %} 
+             <a href="{% url 'add-comment' story.id %}">
+                Add a comment
+            </a>
+        {% endif %}
 
         {% if request.user.is_authenticated and request.user == post.author %}
         <p>
@@ -19,7 +33,9 @@
               <a href="{% url 'delete-story' story.id %}">Delete</a>
         </p>
         {% endif %}
+    {% endfor %}    
+ 
 
-  {% endfor %} 
+  
   
 {%endblock content%}
