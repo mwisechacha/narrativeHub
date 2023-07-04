@@ -24,7 +24,6 @@ class Story(models.Model):
 
 
 class Comment(models.Model):
-    # name = models.CharField(max_length=65, null=True)
     story = models.ForeignKey(Story, related_name='comments', on_delete=models.CASCADE, null=False)
     comment_section = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -33,9 +32,7 @@ class Comment(models.Model):
     def __str__(self):
         return '%s - %s' % (self.story.title, self.author)
     
-    @property
-    def number_of_comments(self):
-        return Comment.objects.filter(story=self).count()
+   
 
     class Meta:
         db_table = 'Comments'

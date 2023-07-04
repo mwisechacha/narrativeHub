@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from .models import Story
+from .models import Story, Comment
 from .forms import StoryForm, CommentForm
 
 # Create your views here.
@@ -63,23 +63,30 @@ def delete_story(request, id):
 
 # comment section
 def create_comment(request, id):
-    story = get_object_or_404(Story, pk=id)
+    story = Story.objects.get(id=id)
 
     if request.method == 'GET':
-        context = {'form': CommentForm(instance=story), 'id':id}
+        context = {'form': CommentForm()}
         return render(request, 'stories/comment_form.html', context)
     
     elif request.method == 'POST':
-        form = CommentForm(request.POST, instance=story)
+        form = CommentForm(request.POST)
         if form.is_valid():
-            comment = form.save()
+            comment = form.save(commit=False)
+            comment.author = request.user
             comment.story = story
-            comment.save()
+            print(comment.save())
             # messages.success(request, 'comment has been posted successfully')
             return redirect('storyposts')
         else:
             messages.error(request, 'Please correct the following errors')
-            return render(request, 'stories/comment_form.html', {'form': form})
+            return render(request, 'stories/comment_form.html', {'form': form, 'story': story})
+
+@login_required
+def delete_comment(request, id):
+    comment = get_object_or_404(Comment, id=id, author=request.user)
+    comment.delete()
+    return redirect('storyposts')
 
 def home(request):
     stories = Story.objects.all()
