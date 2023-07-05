@@ -13,10 +13,20 @@ class Story(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    likes = models.ManyToManyField(User, related_name='liked_stories', blank=True)
     
 
     def __str__(self):
         return self.title
+    
+    def like(self, user):
+        self.likes.add(user)
+
+    def unlike(self, user):
+        self.likes.remove(user)
+
+    def is_liked_by_user(self, user):
+        return self.likes.filter(id=user.id).exists()
 
     class Meta:
         db_table = 'Story'

@@ -88,6 +88,17 @@ def delete_comment(request, id):
     comment.delete()
     return redirect('storyposts')
 
+# like stories
+def like_story(request, id):
+    story = get_object_or_404(Story, id=id)
+    story.like(request.user)
+    return redirect('storyposts')
+
+def unlike_story(request, id):
+    story = get_object_or_404(Story, id=id)
+    story.unlike(request.user)
+    return redirect('storyposts')
+
 def home(request):
     stories = Story.objects.all()
     context = {'stories': stories}

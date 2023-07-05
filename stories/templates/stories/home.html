@@ -9,6 +9,17 @@
         <p>Posted on {{story.created_at | date:"M d, Y"}} by {{story.author | title}}</p>
         <p>{{story.content}}</p>
 
+        <p>Likes: {{ story.likes.count }}</p>
+        {% if request.user.is_authenticated %}
+            {% if request.user in story.liked_by.all %}
+                <button class="like-button liked">Unlike</button>
+            {% else %}
+                <button>like</button>
+            {% endif %}
+        {% else %}
+            <button>like</button>
+        {% endif %}
+
         <h2>comments</h2>
         {% if not story.comments.all %}
              No Comments Yet <a href="{% url 'add-comment' story.id %}">
