@@ -4,22 +4,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel='stylesheet' href="{% static 'css/styles.css' %}"/>
+    <link rel='stylesheet' type='text/css' href="{% static 'css/styles.css' %}"/>
     <script src="{% static 'js/app.js'%}" defer></script>
     <title>{%if title%} {{title}}{%else%} NarrativeHub {%endif%}</title>
   </head>
   <body>
   
     <header>
+          <div class="logo-section">
             {%if request.user.is_authenticated %}
-                  <a href="{%url 'storyposts'%}">My stories</a>
+                  <a class="logo" href="{%url 'storyposts'%}">NarrativeHub</a>
+                  <div class="settings">
+                  <span>Hi {{ request.user.username | title}}</span> 
                   <a href="{%url 'create-story'%}">New Story</a>
-                  <span>Hi {{ request.user.username | title}}</span>
                   <a href="{%url 'logout'%}">Logout</a>
             {%else%}
                   <a href="{%url 'login'%}">Login</a>
                   <a href="{%url 'register'%}">Register</a>
             {%endif%}
+          </div>
+          </div>
+
+          <div class="nav-bar">
+            <a href="{% url 'storyposts' %}">Home</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'contact' %}">Contacts</a>
+            <a href="#">On sale</a>
+          </div>
     </header>
     <main>
             {% if messages %}

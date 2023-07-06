@@ -1,8 +1,10 @@
 {%extends 'base.html'%} 
-
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+<script src="{% static 'js/app.js'%}" defer></script>
 {%block content%}
 
-  <h1>My Stories</h1>
+  
   {% for story in stories%}
         <h2>{{story.title}}</h2>
         <img src="{{story.cover_picture.url}}" />
