@@ -111,3 +111,6 @@ def about(request):
 
 def contact(request):
     return render(request, "stories/contact.html")
+
+def on_sale(request):
+    return render(request, 'stories/on_sale.html')

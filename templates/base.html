@@ -25,12 +25,16 @@
           </div>
           </div>
 
+          <div class="navbar-wrapper">
           <div class="nav-bar">
+            <div class="navbar-items">
             <a href="{% url 'storyposts' %}">Home</a>
             <a href="{% url 'about' %}">About</a>
             <a href="{% url 'contact' %}">Contacts</a>
             <a href="#">On sale</a>
           </div>
+          </div>
+        </div>
     </header>
     <main>
             {% if messages %}
@@ -47,5 +51,46 @@
           {%block content%} 
           {% endblock %}
     </main>
+
+    <footer class="footer-wrapper">
+      <div class="footer">
+      <div>
+        <a class="logo-footer" href="{%url 'storyposts'%}">NarrativeHub</a>
+      </div>
+      <div class="socials">
+        <ul class="social-list" role="list" aria-label="social-links">
+          <li>
+            <a aria-label="facebook" href="#">
+              <svg class="social-icon">
+                <use  xlink:href="static/images/social.svg#icon-facebook"></use>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="youtube">
+              <svg class="social-icon">
+                <use xlink:href="static/images/social.svg#icon-youtube"></use>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="twitter">
+              <svg class="social-icon">
+                <use xlink:href="static/images/social.svg#icon-twitter"></use>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="pinterest">
+              <svg class="social-icon">
+                <use xlink:href="static/images/social.svg#icon-pinterest"></use>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </footer>
+
   </body>
 </html>

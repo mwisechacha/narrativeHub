@@ -11,5 +11,6 @@ urlpatterns = [
     path("like-story/<int:id>", views.like_story, name='like-story'),
     path("unlike-story/<int:id>", views.unlike_story, name='unlike-story'),
     path("about/", views.about, name='about'),
-    path("contact/", views.contact, name='contact')
+    path("contact/", views.contact, name='contact'),
+    path("on-sale/", views.on_sale, name='on-sale'),
 ]

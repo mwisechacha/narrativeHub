@@ -105,7 +105,8 @@ header{
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 23rem;
 }
 
 .logo{
@@ -113,6 +114,7 @@ header{
   padding-left: 1rem;
   font-weight: 600;
   font-size: 28px;
+  align-self: center;
 }
 
 .settings{
@@ -121,12 +123,64 @@ header{
   padding-right: 1rem;
 }
 
+.navbar-wrapper{
+  width: 100%;
+  border-top: .2px solid rgb(210, 204, 204);
+  border-bottom: .2px solid rgb(210, 204, 204);
+  display: flex;
+  justify-content: center;
+}
+
 .nav-bar{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  align-items: center;
+}
+
+.navbar-items{
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+
+.social-list {
+  display: flex;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+.social-icon {
+  width: 1.5rem !important;
+  aspect-ratio: 1 !important;
+  fill: hsl(0, 0%, 4%);
+
+}
+
+.social-list a:is(:hover, :focus) .social-icon {
+  fill: rgb(225, 154, 195);
+}
+
+.footer-wrapper{
+  width: 100%;
+  border-top: .2px solid rgb(210, 204, 204);
+  border-bottom: .2px solid rgb(210, 204, 204);
+  
+}
+
+.footer{
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.logo-footer{
+  margin-top: 1rem;
+  padding-left: 1rem;
+  font-weight: 600;
+  font-size: 16px;
   align-self: center;
-  justify-content: space-evenly;
-  gap: 1rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
 }
