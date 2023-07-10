@@ -1,14 +1,34 @@
-{%extends 'base.html'%} 
-
-<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+{% comment %} {%extends 'base.html'%}  {% endcomment %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/story.css' %}">
 <script src="{% static 'js/app.js'%}" defer></script>
 
 {%block content%}
 
-<h1>{% if id %} Edit {% else %} New {% endif %} Story</h1>
+<h1 class="main-title">{% if id %} Edit {% else %} New {% endif %} Story</h1>
 <form method="post" novalidate enctype="multipart/form-data">
-  {% csrf_token %} {{ form.as_p}}
+  {% csrf_token %} 
+  <div class="flex">
+  <div class="story-animation">
+    <img src="{% static 'images/story-animation.jpg' %}" alt="story-animation">
+  </div>
+  <div class="form-fields">
+  <div class="title">
+    <label for="{{ form.title.id_for_label}}">Title</label><br>
+    {{ form.title }}
+  </div>
+  <div class="story-content">
+    <label for="{{ form.content.id_for_label }}">Content</label><br>
+    {{form.content}}
+  </div>
+  <div class="cover-picture">
+    <label for="{{ form.cover_picture.id_for_label }}">Cover Picture</label><br>
+    {{form.cover_picture}}
+  </div>
   <input type="submit" value="Save" />
+</div>
+</div>
+  
 </form>
 
 {% endblock content%}
