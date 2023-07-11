@@ -14,16 +14,7 @@
     <div class="story-details">
         <div class="story-title">
             <p>{{story.author| title}}</p><span>~~</span>
-            <p>
-                {% now 'U' as current_time %}
-                {% with post_date=current_time|subtract:story.created_at|timesince %}
-                    {% if 'week' in post_date %}
-                        {{ post_date|stringreplace: 'days': ''}} ago
-                    {% else %}
-                        {{ post_date }} ago
-                    {% endif %}
-                {% endwith %}
-            </p>
+            <p>{{ story.created_at|timesince }} ago</p>
     </div>
     <h2>{{story.title}}</h2>
 
