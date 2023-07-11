@@ -1,15 +1,33 @@
 {%extends 'base.html'%} 
 {% load static %}
+{% load custom_filters%}
 <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 <script src="{% static 'js/app.js'%}" defer></script>
 {%block content%}
 
   
   {% for story in stories%}
-        <h2>{{story.title}}</h2>
+  <div class="flex">
+  <div class="cover-picture">
         <img src="{{story.cover_picture.url}}" />
-        <p>Posted on {{story.created_at | date:"M d, Y"}} by {{story.author | title}}</p>
-        <p>{{story.content}}</p>
+    </div>
+    <div class="story-details">
+        <div class="story-title">
+            <p>{{story.author| title}}</p><span>~~</span>
+            <p>
+                {% now 'U' as current_time %}
+                {% with post_date=current_time|subtract:story.created_at|timesince %}
+                    {% if 'week' in post_date %}
+                        {{ post_date|stringreplace: 'days': ''}} ago
+                    {% else %}
+                        {{ post_date }} ago
+                    {% endif %}
+                {% endwith %}
+            </p>
+    </div>
+    <h2>{{story.title}}</h2>
+
+        <p class="content">{{story.content}}</p>
 
         <p>Likes: {{ story.likes.count }}</p>
         {% if request.user.is_authenticated %}
@@ -48,6 +66,8 @@
               <a href="{% url 'delete-story' story.id %}">Delete</a>
         </p>
         {% endif %}
+    </div>
+</div>
     {% endfor %}    
  
 
