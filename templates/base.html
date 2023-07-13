@@ -5,12 +5,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel='stylesheet' type='text/css' href="{% static 'css/styles.css' %}"/>
+    <link
+    rel="icon"
+    type="image/jpg"
+    sizes="32x32"
+    href="static/images/favicon-32x32.jpg"
+  />
     <script src="{% static 'js/app.js'%}" defer></script>
     <title>{%if title%} {{title}}{%else%} NarrativeHub {%endif%}</title>
   </head>
   <body>
   
-    <header>
+    <header class="header-section">
           <div class="logo-section">
             {%if request.user.is_authenticated %}
                   <a class="logo" href="{%url 'storyposts'%}">NarrativeHub</a>
@@ -36,7 +42,7 @@
           </div>
         </div>
     </header>
-    <main>
+    <main class='main-section'>
             {% if messages %}
                 <div class="flash-messages">
                     {% for message in messages %}

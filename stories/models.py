@@ -1,20 +1,29 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 
 # Create your models here.
 
 
 class Story(models.Model):
     title = models.CharField(max_length=120)
-    content = models.TextField()
+    content = models.TextField() # full story
+    preview_content = models.CharField(max_length=200, default='story preview...') # short story content
+    slug = models.SlugField(max_length=120, unique=True, blank=True, default=slugify(title))
+     
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)    
+        super().save(*args, **kwargs)
+
     cover_picture = models.ImageField(
         upload_to='stories/covers/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     likes = models.ManyToManyField(User, related_name='liked_stories', blank=True)
-    
+   
 
     def __str__(self):
         return self.title

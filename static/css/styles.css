@@ -99,6 +99,15 @@ header{
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+  transition: top 0.3s;
+  background-color: #fff;
+}
+
+header.hidden{
+  top: -9rem;
 }
 
 .logo-section{
@@ -115,6 +124,7 @@ header{
   font-weight: 600;
   font-size: 28px;
   align-self: center;
+  color: hsl(6, 100%, 73%);
 }
 
 .settings{
@@ -145,6 +155,10 @@ header{
   padding-bottom: 0.8rem;
 }
 
+.navbar-items a:is(:hover, :focus){
+  color: hsl(6, 100%, 73%);
+}
+
 .social-list {
   display: flex;
   gap: 1rem;
@@ -159,7 +173,8 @@ header{
 }
 
 .social-list a:is(:hover, :focus) .social-icon {
-  fill: rgb(225, 154, 195);
+  fill:hsl(6, 100%, 73%);
+;
 }
 
 .footer-wrapper{
@@ -185,17 +200,36 @@ header{
   align-self: center;
 }
 
+.main-section{
+  padding-top: 9rem;
+}
+
 /*story-details*/
 .flex{
   display: flex;
   gap: 1rem;
-  padding-left: 3rem;
+  margin-left: 3rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: .2px solid rgb(210, 204, 204);
+
+}
+
+.story-details{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .story-title{
   display: flex;
 }
 
-.cover-picture{
+.content{
+  max-width: 50ch;
+}
 
+.cover-picture img{
+  width: 300px;
+  
 }

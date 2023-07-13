@@ -99,8 +99,17 @@ def unlike_story(request, id):
     story.unlike(request.user)
     return redirect('storyposts')
 
+def full_story(request, slug):
+    story = get_object_or_404(Story, slug=slug)
+    context = {'story': story}
+    return render(request, 'stories/full_story.html', context)
+
 def home(request):
     stories = Story.objects.all()
+
+    for story in stories:
+        # shorten tne content for preview
+        story.preview_content = story.content[:200] + '...' if len(story.content) > 200 else story.content
     context = {'stories': stories}
     return render(request, 'stories/home.html', context)
 

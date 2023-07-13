@@ -186,10 +186,6 @@
     margin-bottom: 5px;
   }
 
-  .cover-picture input[type="file"]{
-    /* background-color: hsla(308, 82%, 66%, 0.856); */
-  }
-
   input[type='submit']{
     cursor: pointer;
     text-decoration: none;

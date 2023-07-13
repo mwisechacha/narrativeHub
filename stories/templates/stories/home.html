@@ -5,7 +5,7 @@
 <script src="{% static 'js/app.js'%}" defer></script>
 {%block content%}
 
-  
+  <div class="main-section">
   {% for story in stories%}
   <div class="flex">
   <div class="cover-picture">
@@ -14,12 +14,16 @@
     <div class="story-details">
         <div class="story-title">
             <p>{{story.author| title}}</p><span>~~</span>
-            <p>{{ story.created_at|timesince }} ago</p>
+            <p>{{ story.created_at|timesince|upto:',' }} ago</p>
     </div>
-    <h2>{{story.title}}</h2>
 
-        <p class="content">{{story.content}}</p>
+        <h2>
+            <a href="{% url 'full-story' story.slug %}">{{ story.title }}</a>
+        </h2>
 
+        <p class="content">{{story.preview_content}}</p>
+
+        <div class="icons">
         <p>Likes: {{ story.likes.count }}</p>
         {% if request.user.is_authenticated %}
             {% if request.user in story.liked_by.all %}
@@ -31,7 +35,7 @@
             <button>like</button>
         {% endif %}
 
-        <h2>comments</h2>
+        <p>comments</p>
         {% if not story.comments.all %}
              No Comments Yet <a href="{% url 'add-comment' story.id %}">
                  Add a comment
@@ -58,10 +62,11 @@
         </p>
         {% endif %}
     </div>
+    </div>
 </div>
     {% endfor %}    
  
-
+</div>
   
   
 {%endblock content%}
