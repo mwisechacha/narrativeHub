@@ -1,33 +1,21 @@
-var prevScrollPos = window.pageYOffset || document.documentElement.scrollTop;
-var navbar = document.querySelector('.header-section');
-var isScrolling = false;
-var timeout;
-
-function toggleNavbar() {
-  var currentScrollPos = window.pageYOffset || document.documentElement.scrollTop;
-  if (currentScrollPos === 0) {
-    navbar.classList.remove('hidden');
-  } else if (prevScrollPos > currentScrollPos) {
-    navbar.classList.remove('hidden');
-  } else {
-    navbar.classList.add('hidden');
-  }
-  prevScrollPos = currentScrollPos;
-  isScrolling = false;
+function likeStory(storyId){
+  $.ajax({
+    type: 'POST',
+    url: '/like/',
+    data: {
+      'story_id': storyId,
+      'csrfmiddlewaretoken': '{{ csrf_token }}'
+    },
+    success: function(response) {
+      // Update button and likes count
+      var likesCount = response.likes_count;
+      $('#likes-count-' + storyId).text(likesCount);
+      $('.like-button').text('Unlike');
+      $('.like-button').addClass('liked');
+  },
+  error: function(xhr, status, error) {
+    console.log('An error occurred while liking the story.');
 }
-
-function handleScroll() {
-  if (!isScrolling) {
-    isScrolling = true;
-    navbar.classList.remove('hidden');
-  }
-
-  clearTimeout(timeout);
-  timeout = setTimeout(function() {
-    isScrolling = false;
-    toggleNavbar();
-  }, 500); // Adjust the delay (in milliseconds) as desired
+  });
 }
-
-window.addEventListener('scroll', handleScroll);
 

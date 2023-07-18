@@ -24,15 +24,13 @@
         <p class="content">{{story.preview_content}}</p>
 
         <div class="icons">
-        <p>Likes: {{ story.likes.count }}</p>
-        {% if request.user.is_authenticated %}
-            {% if request.user in story.liked_by.all %}
-                <button class="like-button liked">Unlike</button>
-            {% else %}
-                <button>like</button>
-            {% endif %}
+        <p>Likes:
+            <span id="likes-count-{{ story.id }}"> {{ story.likes.count }}</span>
+        </p>
+        {% if user.is_authenticated %}
+        <button class="like-button" onclick="likeStory()">Like</button>
         {% else %}
-            <button>like</button>
+            <button class="like-button disabled">Like</button>
         {% endif %}
 
         <p>comments</p>

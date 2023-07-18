@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import JsonResponse
 from .models import Story, Comment
 from .forms import StoryForm, CommentForm
 
@@ -91,8 +91,19 @@ def delete_comment(request, id):
 # like stories
 def like_story(request, id):
     story = get_object_or_404(Story, id=id)
-    story.like(request.user)
-    return redirect('storyposts')
+    if request.user.is_authenticated:
+        if request.user in story.likes.all():
+            story.likes.remove(request.user)
+            liked = False
+        else:
+            story.likes(request.user)
+            liked = True
+        likes_count = story.likes.count()
+        response_data = {'liked': liked, 'likes_count': likes_count}
+        return JsonResponse(response_data)
+    else:
+        return JsonResponse({'error': 'Authentication required'}, status=401)
+        return redirect('storyposts')
 
 def unlike_story(request, id):
     story = get_object_or_404(Story, id=id)

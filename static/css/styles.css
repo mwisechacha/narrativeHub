@@ -95,7 +95,7 @@
     text-decoration-skip-ink: auto;
   }
 
-header{
+/* header{
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -104,11 +104,11 @@ header{
   z-index: 9999;
   transition: top 0.3s;
   background-color: #fff;
-}
+} */
 
-header.hidden{
+/* header.hidden{
   top: -9rem;
-}
+} */
 
 .logo-section{
   display: flex;
@@ -200,9 +200,9 @@ header.hidden{
   align-self: center;
 }
 
-.main-section{
+/* .main-section{
   padding-top: 9rem;
-}
+} */
 
 /*story-details*/
 .flex{

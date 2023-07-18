@@ -1,11 +1,17 @@
 {%extends 'base.html'%} 
 {% load static %}
-{% load custom_filters%}
-<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/main_story.css' %}">
 <script src="{% static 'js/app.js'%}" defer></script>
+
 {%block content%}
+<div class="full-story-content">
+    <h2>{{ story.title }}</h2>
+    <p>{{ story.content }}</p>
+</div>
 
-<h2>{{ story.title }}</h2>
-<p>{{ story.content }}</p>
+<!-- comments -->
+<div class="comments">
 
+</div>
 {% endblock content %}

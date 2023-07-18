@@ -23,7 +23,6 @@ class Story(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     likes = models.ManyToManyField(User, related_name='liked_stories', blank=True)
-   
 
     def __str__(self):
         return self.title
