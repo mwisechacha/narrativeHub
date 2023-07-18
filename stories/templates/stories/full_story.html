@@ -12,6 +12,21 @@
 
 <!-- comments -->
 <div class="comments">
+    {% for comment in story.comments.all %}
+             <strong>
+                 {{ comment.author }} - {{ comment.created_at}}
+             </strong><br>
+             {{ comment.comment_section }}
+             {% if comment.author == request.user%}
+             <a href="{% url 'delete-comment' comment.id %}">Delete</a>
+             {% endif %}
+             {% endfor %} 
 
+             {% if request.user.is_authenticated and request.user == post.author %}
+             <p>
+                   <a href="{% url 'edit-story' story.id %}">Edit</a>
+                   <a href="{% url 'delete-story' story.id %}">Delete</a>
+             </p>
+             {% endif %}
 </div>
 {% endblock content %}
