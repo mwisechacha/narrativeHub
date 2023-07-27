@@ -1,13 +1,26 @@
-{% extends 'base.html' %}
-
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+<script src="{% static 'js/app.js'%}" defer></script>
 {% block content %}
 
 <form method="POST" novalidate>
     {% csrf_token %}
     <h2>Login</h2>
-    {{form.as_p}}
+    <p>Welcome back! Please login to your account</p>
+    <div class="login_details">
+        <div class="username">
+            <label for="{{ form.username.id_for_label }}">Username</label><br>
+            {{ form.username }}
+        </div>
+        <div class="password">
+            <label for="{{ form.password.id_for_label }}">Password</label><br>
+            {{ form.password }}
+        </div>
+    </div>
     <input type='submit' value="Login"/>
-    <p>Don't have an account? <a href="{%url 'register'%}">Register</a></p>
+    <div>
+        <p>Don't have an account? <a href="{%url 'register'%}">Register</a></p>
+    </div>
 </form>
 
 {% endblock content %}

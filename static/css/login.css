@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
+:root {
+  font-family: "Rubik";
+  background-color: hsl(270, 20%, 96%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: inherit;
+    text-decoration: none;
+    font: inherit;
+    color: inherit;
+  }
+  
+  article,
+  figure,
+  footer,
+  header,
+  menu,
+  nav,
+  section {
+    display: block;
+  }
+  
+  body {
+    line-height: 1;
+  }
+  
+  body * {
+    max-width: 100%;
+  }
+  
+  ol,
+  ul {
+    list-style: none;
+  }
+  
+  input:focus {
+    outline: none;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+  */ * {
+    font: inherit;
+    margin: 0;
+    padding: 0;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  body {
+    line-height: 1.5;
+  }
+  
+  html,
+  body {
+    height: 100%;
+    text-rendering: optimizeSpeed;
+  }
+  
+  html:focus-within {
+    scroll-behavior: smooth;
+  }
+  
+  img,
+  picture {
+    max-width: 100%;
+    display: block;
+  }
+  
+  ul[role="list"],
+  ol[role="list"] {
+    list-style: none;
+    padding: 0;
+  }
+  
+  a:not([class]) {
+    text-decoration-skip-ink: auto;
+  }
