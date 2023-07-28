@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # local
     'stories.apps.StoriesConfig',
     'users.apps.UsersConfig',
+    'profiles.apps.ProfilesConfig',
 
 ]
 
